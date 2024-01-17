@@ -12,7 +12,7 @@ class VendorCli extends Command
      *
      * @var string
      */
-    protected $signature = 'vendor:cli
+    protected $signature = 'vendor:show
                                     {--path_csv_file=./Mobile_Food_Facility_Permit.csv : path to csv file }
                                     {--head_fields=Applicant :  The field of table head that name is case insensitive. `*` represents all}
                                     {--applicant= : The applicant of vendor}
@@ -31,7 +31,7 @@ class VendorCli extends Command
      *
      * @var string
      */
-    protected $description = 'tool of support for vendor';
+    protected $description = 'show & fliter vendor';
 
     /**
      * Create a new command instance.
@@ -127,7 +127,8 @@ class VendorCli extends Command
         }
 
         if(
-            (count($filter)<=0  ||  (count($filter)==1 && !empty($filter['applicant'])))
+            count($filter)<=0  ||  
+            (count($filter)==1 && !empty($filter['applicant']))
         )
         {
             return true;
