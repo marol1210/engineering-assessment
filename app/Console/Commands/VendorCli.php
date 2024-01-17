@@ -17,7 +17,7 @@ class VendorCli extends Command
                                     {--applicant= : The applicant of vendor}
                                     {--facility_type= : Facility type}
                                     {--status= : The Vendor status}
-                                    {--food_name= : food which the vendor supply}';
+                                    {--food_name= : the food which vendor supply}';
 
     /**
      * The console command description.
@@ -81,7 +81,10 @@ class VendorCli extends Command
             }
         }
 
-        if(count($filter)<=1 || in_array('applicant',$filter)){
+        if(
+            (count($filter)<=0  ||  (count($filter)==1 && !empty($filter['applicant'])))
+        )
+        {
             return true;
         }
         return false;
@@ -93,16 +96,17 @@ class VendorCli extends Command
     protected function applyFilterCondition(Array $data,Array $show_heads){
         $filter_condition = $this->filterCondition();
 
-        $show_heads_flg = collect($data['header'])->reject(function($item) use($show_heads){
+        $data['header'] = $show_heads_flg = collect($data['header'])->reject(function($item) use($show_heads){
             foreach($show_heads as $v){
                 if(strtoupper($v) == strtoupper($item)){
                     return false;
                 }
             }
             return true;
-        });
+        })->all();
         
-        $data['list'] = collect($data['list'])->transform(
+        $data['list'] = collect($data['list'])
+                                ->transform(
                                     function($item , $key) use($show_heads_flg){
                                         $new_item = [];
                                         foreach($show_heads_flg as $k=>$v){
@@ -111,10 +115,14 @@ class VendorCli extends Command
                                         return $new_item;
                                     }
                                 )
-                              ->when($this->onlyApplicant($filter_condition),function ($collection, $value) {
+                                ->when($this->onlyApplicant($filter_condition),function ($collection, $value) {
                                     return $collection->unique();
                                 })
-                              ->sortBy('APPLICANT');
+                                ->when(!empty($filter_condition['food_name']),function ($collection, $value) {
+                                    
+                                    return $collection->filter();
+                                })
+                                ->sortBy('APPLICANT')->all();
         return $data;
     }
 
@@ -145,12 +153,11 @@ class VendorCli extends Command
         if($show_heads!='*'){
             $show_heads = explode(',',$show_heads);
             $data = $this->applyFilterCondition($data,$show_heads);
-        }else{
-            $show_heads = $data['header'];
         }
 
+        $show_heads[0] .= "     total: ".count($data['list']); 
         $this->table(
-            $show_heads,
+            $data['header'],
             $data['list']
         );
     }
