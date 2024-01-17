@@ -71,6 +71,7 @@ class VendorCli extends Command
 
         if(count($_heads)>0){
             $_heads[]='Address';
+            $_heads[]='FacilityType';
             $_heads[]='status';
             $_heads[]='permit';
         }
