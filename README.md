@@ -86,6 +86,21 @@ Options:
 ```
 
 
+# Web site
+start web server to visit web site
+```
+docker composer up -d
+```
+
+visit url
+```
+http://localhost:8880
+```
+
+
+
+
+
 # Engineering Challenge
 
 We strive to be a practical and pragmatic team. That extends to the way that we work with you to understand if this team is a great fit for you. We want you to come away with a great understanding of the kind of things that we actually do day to day and what it is like to work in our teams.
