@@ -1,3 +1,91 @@
+# Introduction
+Food can bring happiness to people. It will be great if we can have a app that is convenient and offer a variety of food options. Therefore, this project demo was conceived and born.
+
+## System requirement
+   `docker`   
+   `php^8.1`  
+   `composer^2.6`  
+   `npm8.19`  
+   `vue3 & vite`
+
+# Feature
+. It support cli command for query food carrier information & search food and so on.
+
+. It has Web API service for SPA , Wechat miniapp.
+
+# Future 
+. ***Support for online WeChat payment and Taobao payment
+
+. ***Diners are able to communicate online and have preliminary social attributes.
+
+## Quick Start
+1.The demo is a Laravel project. First , `cd` to project's dir and run :
+
+```go
+composer install
+```
+
+2.CLI commands
+
+show Food truck vendor list
+```
+php artisan vendor:show
+```
+```
++-------------------------------------------------------------------------+
+| Applicant     total: 122                                                |
++-------------------------------------------------------------------------+
+| Alfaro Truck                                                            |
+| Athena SF Gyro                                                          |
+| Authentic India                                                         |
+| BH & MT LLC                                                             |
+| BOWL'D ACAI, LLC.                                                       |
+| Bay Area Dots, LLC                                                      |
+| Bay Area Mobile Catering, Inc. dba. Taqueria Angelica's                 |
+| Bonito Poke                                                             |
+| Boulangerie La Camionnette                                              |
+| Brazuca Grill                                                           |
+| Breakfast Embed                                                         |
+| Buenafe                                                                 |
+...
+```
+
+command option `--food_name`.  Search for suppliers of coffee food.
+```
+php artisan vendor:show --food_name=Coffee
+```
+```
++----------------------------+--------------+-----------------------------+-------------+-----------+---------------------------------------------------+
+| Applicant     total: 22    | FacilityType | Address                     | permit      | Status    | FoodItems                                         |
++----------------------------+--------------+-----------------------------+-------------+-----------+---------------------------------------------------+
+| Boulangerie La Camionnette |              | 500 FLORIDA ST              | 21MFF-00079 | REQUESTED | Bread: Pastries: Coffee: Pizza   	             | 
+| Breakfast Embed            | Truck        | 234 01ST ST                 | 21MFF-00069 | REQUESTED | Coffee: Pastries: Bagels: Sandwiches: Other Items | 
+| Breakfast Embed            | Truck        | 1200 04TH ST                | 21MFF-00069 | REQUESTED | Coffee: Pastries: Bagels: Sandwiches: Other Items |
++----------------------------+--------------+-----------------------------+-------------+-----------+---------------------------------------------------+
+
+```
+
+other command options.
+```
+php artisan help vendor:show
+```
+```
+Description:
+  show & fliter vendor
+
+Usage:
+  vendor:show [options]
+
+Options:
+      --path_csv_file[=PATH_CSV_FILE]  path to csv file [default: "./Mobile_Food_Facility_Permit.csv"]
+      --head_fields[=HEAD_FIELDS]      The field of table head that name is case insensitive. `*` represents all [default: "Applicant"]
+      --applicant[=APPLICANT]          The applicant of vendor
+      --facility_type[=FACILITY_TYPE]  Facility type
+      --status[=STATUS]                The Vendor status
+      --food_name[=FOOD_NAME]          the food which vendor supply
+```
+
+
 # Engineering Challenge
 
 We strive to be a practical and pragmatic team. That extends to the way that we work with you to understand if this team is a great fit for you. We want you to come away with a great understanding of the kind of things that we actually do day to day and what it is like to work in our teams.

@@ -1,0 +1,11 @@
+services:
+    food_backend:
+        image: 'php:8.1-alpine'
+        volumes:
+            - ./:/var/www/html/laravel
+        working_dir: /var/www/html/laravel
+        entrypoint: ["php","/var/www/html/laravel/artisan","serve", "--host","0.0.0.0","--port","8880"]
+        expose:
+          - 8880
+        ports:
+          - "8880:8880"
